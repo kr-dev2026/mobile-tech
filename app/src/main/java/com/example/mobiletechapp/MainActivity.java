@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        Bundle extras = getIntent().getExtras();
+        String msg = extras.getString("message");
+        TextView textView = findViewById(R.id.textViewOutput);
+        textView.setText(msg);
+
         // button click listener
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
