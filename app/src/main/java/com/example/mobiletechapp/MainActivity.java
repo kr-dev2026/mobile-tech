@@ -13,11 +13,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText editTextText;
     private TextView textViewOutput;
     private Button buttonOk;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +32,13 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // connect UI elements from activity_main.xml
         textViewOutput = findViewById(R.id.textViewOutput);
         editTextText = findViewById(R.id.editTextText);
         buttonOk = findViewById(R.id.buttonOk);
 
-        // handle edge-to-edge padding
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("messages");
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -39,11 +46,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Bundle extras = getIntent().getExtras();
-        String msg = extras.getString("message");
-        TextView textView = findViewById(R.id.textViewOutput);
-        textView.setText(msg);
+        if (extras != null) {
+            String msg = extras.getString("message");
+            if (msg != null) {
+                textViewOutput.setText(msg);
+            }
+        }
 
-        // button click listener
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,15 +61,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // method called when button is clicked
     public void displayMessage(View view) {
+        String message = editTextText.getText().toString().trim();
 
-        String message = editTextText.getText().toString();
+        if (message.isEmpty()) {
+            Toast.makeText(this, "Please enter a message.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        // update TextView with message
         textViewOutput.setText(message);
 
-        // show Toast message
-        Toast.makeText(this, "OK button clicked.", Toast.LENGTH_LONG).show();
+        databaseReference.setValue(message)
+                .addOnSuccessListener(unused ->
+                        Toast.makeText(MainActivity.this, "Message saved to Firebase.", Toast.LENGTH_LONG).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(MainActivity.this, "Failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
     }
 }

@@ -38,9 +38,12 @@ public class RealtimeDatabaseActivity extends AppCompatActivity {
                 });
 
         // Get reference to the Firebase Realtime Database
-        dbref = FirebaseDatabase.getInstance().getReference();
+        dbref = FirebaseDatabase.getInstance().getReference("folder 1");
+        dbref.child("key 1a").setValue("value 1a");
+        dbref.child("key 1b").setValue("value 1b");
 
-        // Add data to database
-        dbref.child("testing").removeValue();
+        dbref = FirebaseDatabase.getInstance().getReference("folder 2");
+        dbref.child("key 2a").setValue("value 2a");
+        dbref.child("key 2b").setValue("value 2b");
     }
 }
