@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Internet permission required for Firebase -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,21 +13,31 @@
         android:label="MT 2025 App"
         android:roundIcon="@mipmap/ic_dogs_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MobileTechApp">
+        android:theme="@style/Theme.MobileTechApp"
+        tools:targetApi="31">
+
+        <!-- Activity that writes to Firebase -->
         <activity
             android:name=".RealtimeDatabaseActivity"
             android:exported="false" />
+
+        <!-- Main activity -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <!-- App launcher activity -->
         <activity
             android:name=".StartActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

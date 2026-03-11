@@ -26,22 +26,13 @@ public class StartActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Get button from XML
         Button button = findViewById(R.id.buttonUIEvent);
 
-        // Add click listener
         button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
-                // Create intent
-                Intent intent = new Intent(StartActivity.this, MainActivity.class);
-
-                // Step 13: Send data to MainActivity
-                intent.putExtra("message", "Hello World!");
-
-                // Open MainActivity
+                Intent intent = new Intent(StartActivity.this, RealtimeDatabaseActivity.class);
                 startActivity(intent);
             }
         });
