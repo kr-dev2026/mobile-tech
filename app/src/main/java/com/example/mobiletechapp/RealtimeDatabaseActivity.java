@@ -1,49 +1,48 @@
 package com.example.mobiletechapp;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.graphics.Insets;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RealtimeDatabaseActivity extends AppCompatActivity {
 
-    // Declare a database reference instance
     DatabaseReference dbref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_realtime_database);
 
-        // Handle system bar padding (edge-to-edge UI)
-        ViewCompat.setOnApplyWindowInsetsListener(
-                findViewById(R.id.main),
-                (v, insets) -> {
-                    Insets systemBars =
-                            insets.getInsets(WindowInsetsCompat.Type.systemBars());
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
-                    v.setPadding(
-                            systemBars.left,
-                            systemBars.top,
-                            systemBars.right,
-                            systemBars.bottom
-                    );
-                    return insets;
-                });
+        dbref = FirebaseDatabase.getInstance().getReference("My Study");
 
-        // Get reference to the Firebase Realtime Database
-        dbref = FirebaseDatabase.getInstance().getReference("folder 1");
-        dbref.child("key 1a").setValue("value 1a");
-        dbref.child("key 1b").setValue("value 1b");
+        dbref.child("Mobile Tech").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String mark = snapshot.child("Online Test").getValue().toString();
+                TextView textView = findViewById(R.id.textView);
+                textView.setText("Online Test: " + mark);
+            }
 
-        dbref = FirebaseDatabase.getInstance().getReference("folder 2");
-        dbref.child("key 2a").setValue("value 2a");
-        dbref.child("key 2b").setValue("value 2b");
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 }

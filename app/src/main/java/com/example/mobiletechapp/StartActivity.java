@@ -31,8 +31,8 @@ public class StartActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(StartActivity.this, RealtimeDatabaseActivity.class);
+                Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                intent.putExtra("message", "Hello World!");
                 startActivity(intent);
             }
         });
