@@ -9,10 +9,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +53,32 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        DatabaseReference dbref2 = FirebaseDatabase.getInstance().getReference("UI and Events");
+        dbref2.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String uploadedText = snapshot.getValue().toString();
+                TextView textView = findViewById(R.id.textViewOutput);
+                textView.append("\n" + uploadedText);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,10 +88,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayMessage(View view) {
-        String message = editTextText.getText().toString();
-        textViewOutput.setText(message);
+        textViewOutput.setText(editTextText.getText());
 
         Toast.makeText(this, "OK button clicked.", Toast.LENGTH_LONG).show();
+
+        String inputText = editTextText.getText().toString();
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("UI and Events");
+        dbref.push().setValue(inputText);
 
         Intent intent = new Intent(MainActivity.this, RealtimeDatabaseActivity.class);
         startActivity(intent);
