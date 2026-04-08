@@ -5,6 +5,13 @@
     <!-- Internet permission required for Firebase -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Camera feature and permission -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,28 +23,25 @@
         android:theme="@style/Theme.MobileTechApp"
         tools:targetApi="31">
 
-        <!-- Activity that writes to Firebase -->
+        <activity
+            android:name=".MLKitActivity"
+            android:exported="false" />
+
         <activity
             android:name=".RealtimeDatabaseActivity"
             android:exported="false" />
 
-        <!-- Main activity -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
 
-        <!-- App launcher activity -->
         <activity
             android:name=".StartActivity"
             android:exported="true">
-
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
     </application>

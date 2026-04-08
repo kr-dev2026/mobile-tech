@@ -26,15 +26,18 @@ public class StartActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button button = findViewById(R.id.buttonUIEvent);
+        Button buttonUIEvent = findViewById(R.id.buttonUIEvent);
+        Button buttonMLKit = findViewById(R.id.btn_mlkit);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                intent.putExtra("message", "Hello World!");
-                startActivity(intent);
-            }
+        buttonUIEvent.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            intent.putExtra("message", "Hello World!");
+            startActivity(intent);
+        });
+
+        buttonMLKit.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, MLKitActivity.class);
+            startActivity(intent);
         });
     }
 }
