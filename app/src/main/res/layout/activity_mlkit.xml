@@ -33,7 +33,7 @@
         android:id="@+id/buttonOpenCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Open Camera"
         android:onClick="openCamera"
         app:layout_constraintTop_toBottomOf="@id/imageViewMLKit"
@@ -44,10 +44,21 @@
         android:id="@+id/buttonLoadImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="Load Image"
         android:onClick="loadImage"
         app:layout_constraintTop_toBottomOf="@id/buttonOpenCamera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonOpenListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Open List View"
+        android:onClick="openListView"
+        app:layout_constraintTop_toBottomOf="@id/buttonLoadImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
