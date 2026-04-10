@@ -12,11 +12,11 @@
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_marginTop="80dp"
-        android:src="@drawable/ic_launcher_foreground"
         android:contentDescription="Animation image"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_dogs"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonStart"
