@@ -27,6 +27,9 @@ public class StartActivity extends AppCompatActivity {
 
         Button buttonUIEvent = findViewById(R.id.buttonUIEvent);
         Button buttonMLKit = findViewById(R.id.btn_mlkit);
+        Button buttonSQLite = findViewById(R.id.buttonSQLite);
+        Button buttonAnimation = findViewById(R.id.buttonAnimation);
+        Button buttonMultimedia = findViewById(R.id.buttonMultimedia);
 
         buttonUIEvent.setOnClickListener(v -> {
             Intent intent = new Intent(StartActivity.this, MainActivity.class);
@@ -36,6 +39,21 @@ public class StartActivity extends AppCompatActivity {
 
         buttonMLKit.setOnClickListener(v -> {
             Intent intent = new Intent(StartActivity.this, MLKitActivity.class);
+            startActivity(intent);
+        });
+
+        buttonSQLite.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, SQLiteActivity.class);
+            startActivity(intent);
+        });
+
+        buttonAnimation.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, AnimationActivity.class);
+            startActivity(intent);
+        });
+
+        buttonMultimedia.setOnClickListener(v -> {
+            Intent intent = new Intent(StartActivity.this, MultimediaActivity.class);
             startActivity(intent);
         });
     }
